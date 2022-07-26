@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "enabled": true,
+      "name": "BacktoHotfromCool",
+      "type": "Lifecycle",
+      "definition": {
+        "actions": {
+          "baseBlob": {
+            "enableAutoTierToHotFromCool": true,
+            "tierToCool": {
+              "daysAfterLastAccessTimeGreaterThan": 5
+            }
+          }
+        },
+        "filters": {
+          "blobTypes": [
+            "blockBlob"
+          ]
+        }
+      }
+    }
+  ]
+}
