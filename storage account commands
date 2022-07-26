@@ -1,0 +1,28 @@
+az login
+az account show
+az account list -o table
+
+az storage account check-name --name mystorageaccountazhome
+
+az storage account create -n mystorageaccountazhome -g MyResourceGroup -l centralindia --sku Standard_LRS
+
+az storage account delete -n MyStorageAccount -g MyResourceGroup
+
+az storage account list -g MyResourceGroup -o table
+az storage account list -g MyResourceGroup --output tsv
+
+az storage account show-connection-string -g MyResourceGroup -n mystorageaccountazhome
+
+az storage account show-usage --location centralindia
+
+az storage account update --default-action Allow --name mystorageaccountazhome --resource-group MyResourceGroup --access-tier Hot
+
+az storage account blob-service-properties update --resource-group MyResourceGroup --account-name mystorageaccountazhome --enable-last-access-tracking true
+
+az storage account management-policy create --account-name mystorageaccountazhome --policy ./policy.json --resource-group MyResourceGroup 
+
+az storage account management-policy show --account-name mystorageaccountazhome --resource-group MyResourceGroup
+
+
+
+
