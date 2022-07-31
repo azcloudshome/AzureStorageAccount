@@ -2,15 +2,34 @@ az login
 az account show
 az account list -o table
 
-# change the active subscription using the subscription name
+#################### Get the active subscription #######################
+
+# Method - 1: get the current default subscription using show
+az account show --output table
+
+# Method - 2: get the current default subscription using list
+az account list --query "[?isDefault]"
+
+# Method - 3: store the default subscription  in a variable
+$subscriptionId="$(az account list --query "[?isDefault].id" -o tsv)"
+echo $subscriptionId
+
+#################### -------XXXXXXXX------ #############################
+
+#################### Set the active subscription #######################
+
+# Method - 1: change the active subscription using the subscription name
 az account set --subscription "My Demos"
 
-# change the active subscription using the subscription ID
+# Method - 2: change the active subscription using the subscription ID
 az account set --subscription "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
-# change the active subscription using a variable
-subscriptionId="$(az account list --query "[?isDefault].id" -o tsv)"
+# Method - 3: change the active subscription using a variable
+$subscriptionId="$(az account list --query "[?isDefault].id" -o tsv)"
 az account set --subscription $subscriptionId
+
+#################### -------XXXXXXXX------ #############################
+
 
 az storage account check-name --name mystorageaccountazhome
 
