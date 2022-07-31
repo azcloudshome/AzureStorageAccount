@@ -1,13 +1,30 @@
-
+# variable to use with storage accounts operation
 $mystorageaccountazhome="mystorageaccountazhome"
 $MyResourceGroup="MyResourceGroup"
 
+# Command to create azure storage account in particular resource group
 az storage account create -n $mystorageaccountazhome -g $MyResourceGroup -l centralindia --sku Standard_LRS
 
+#command to change Access tire of account directly
 az storage account update --default-action Allow --name $mystorageaccountazhome --resource-group $MyResourceGroup --access-tier Hot
 
+#command to enable Access tracking of existing account
 az storage account blob-service-properties update --resource-group $MyResourceGroup --account-name $mystorageaccountazhome --enable-last-access-tracking true
 
+#command to implement json policy to to existing account 
+## policy.json must be uploaded to azcli local directory using browser upload button present on strip of cli window. After that execute this command
 az storage account management-policy create --account-name $mystorageaccountazhome --policy ./policy.json --resource-group $MyResourceGroup
 
-# az storage account delete -n $mystorageaccountazhome -g $MyResourceGroup
+#command to view the policy of existing account.
+az storage account management-policy show --account-name $mystorageaccountazhome --resource-group $MyResourceGroup
+
+#command to delete the policy of existing account.
+az storage account management-policy delete --account-name $mystorageaccountazhome --resource-group $MyResourceGroup
+
+# Command to delete azure storage account in particular resource group
+az storage account delete -n $mystorageaccountazhome -g $MyResourceGroup
+
+NOTES:- 
+1. mystorageaccountazhome is storage account name and MyResourceGroup is Resource Group name it can be changed.
+2. LIMITATION OF AZURE CLI IT WILL EXECUTE ONLY ONE COMMAND AT A TIME. 
+3. POLICY CANNOT BE UPDATED IT CAN BE DELETED AND AGAIN NEW POLICY WILL BE CREATED.

@@ -30,18 +30,23 @@ az account set --subscription $subscriptionId
 
 #################### -------XXXXXXXX------ #############################
 
-
+# check storage account name avilability
 az storage account check-name --name mystorageaccountazhome
 
+# create storage account with avilable name
 az storage account create -n mystorageaccountazhome -g MyResourceGroup -l centralindia --sku Standard_LRS
 
+# delete storage account created
 az storage account delete -n MyStorageAccount -g MyResourceGroup
 
+# List storage account in particular Resource Group
 az storage account list -g MyResourceGroup -o table
 az storage account list -g MyResourceGroup --output tsv
 
+# Show storage account coccection string in particular Resource Group
 az storage account show-connection-string -g MyResourceGroup -n mystorageaccountazhome
 
+# Storage account uses location
 az storage account show-usage --location centralindia
 
 az storage account update --default-action Allow --name mystorageaccountazhome --resource-group MyResourceGroup --access-tier Hot
