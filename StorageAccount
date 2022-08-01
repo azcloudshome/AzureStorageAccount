@@ -1,0 +1,8 @@
+# azure storage account creation
+az storage account create --resource-group terraform-rg --name azhomeaccount --sku Standard_LRS --encryption-services blob
+
+az storage account keys list --resource-group terraform-rg --account-name azhomeaccount
+
+az storage container create --name azhomecontainer --account-name azhomeaccount --account-key xxxxxxxxxxxxxx
+
+
