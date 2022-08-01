@@ -4,11 +4,13 @@ $MyResourceGroup="MyResourceGroup"
 $location="centralindia"
 $subscriptionId="$(az account list --query "[?isDefault].id" -o tsv)"
 
-#command to create role based service principle
-az ad sp create-for-rbac -n $MyResourceGroup --role contributer --scopes /subscriptions/&subscriptionID/resourceGroups/$MyResourceGroup
-
 # command to create resource group at specified location
 az group create -l $location -n $MyResourceGroup
+
+#command to create role based service principle for specific resourcegroup
+az ad sp create-for-rbac -n $MyResourceGroup --role contributor --scopes /subscriptions/&subscriptionID/resourceGroups/$MyResourceGroup
+
+
 
 # Command to create azure storage account in particular resource group
 az storage account create -n $mystorageaccountazhome -g $MyResourceGroup -l centralindia --sku Standard_LRS

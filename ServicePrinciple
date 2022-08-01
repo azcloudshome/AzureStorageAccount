@@ -1,0 +1,29 @@
+# variable to use with storage accounts operation
+$mystorageaccountazhome="mystorageaccountazhome"
+$MyResourceGroup="terraform-rg"
+$location="centralindia"
+$subscriptionId="$(az account list --query "[?isDefault].id" -o tsv)"
+
+
+# Method - 3: change the active subscription using a variable
+$subscriptionId="$(az account list --query "[?isDefault].id" -o tsv)"
+az account set --subscription $subscriptionId
+
+# command to create resource group at specified location
+az group create -l $location -n $MyResourceGroup
+
+#command to create role based service principle for specific resourcegroup
+az ad sp create-for-rbac -n $MyResourceGroup --role contributor --scopes /subscriptions/$subscriptionID/resourceGroups/$MyResourceGroup
+
+
+# command to list all service principle present in your account
+az ad sp list --all -o table
+
+# command to list all app present in your account
+az ad app list -o table
+$appId="$(az ad app list --query "[?appId].id" -o tsv)"
+
+az ad app list --display-name terraform-rg -o table
+
+#Delete a service principal and its role assignments.
+az ad sp delete --id 11b9edc6-1c98-4c93-9bb8-xxxxxxxxxxxx
